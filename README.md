@@ -12,3 +12,12 @@
 
 ## Demo
   - [PLAY NOW](https://yurii-shkrobut-m.github.io/2048-game/)
+
+## Installation and Setup
+To get started with this project, you will need to have Node.js version 14 installed on your computer.
+
+### Downloading the Project
+`npm install`
+
+### Starting the Game
+`npm start`
