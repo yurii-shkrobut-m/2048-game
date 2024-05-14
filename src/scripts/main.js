@@ -22,10 +22,14 @@ const messageWin = document.querySelector('.message-win');
 const counter = document.querySelector('.game-score');
 const bestResult = document.querySelector('.game-best');
 
+let isRowsSlides = [];
+let isSlides = true;
+
 const filterZero = (row) => row.filter(el => el !== 0);
 const hasEmptyCell = () => field.some(row => row.some(el => el === 0));
 const checkWin = () => field.some(row => row.some(el => el === 2048));
 const random = () => Math.floor(Math.random() * 4);
+const hasRowSlides = (initRow, resultRow) => initRow.some(item => initRow[item] !== resultRow[item]);
 
 function hasAdjacentTiles() {
   for (let i = 0; i < rowsNum; i++) {
@@ -44,7 +48,7 @@ function hasAdjacentTiles() {
 }
 
 function generateRandomNum() {
-  if (!hasEmptyCell()) {
+  if (!hasEmptyCell() || !isSlides) {
     return;
   }
 
@@ -105,6 +109,9 @@ function slide(row) {
   while (copy.length < columnsNum) {
     copy.push(0);
   }
+
+  isRowsSlides.push(hasRowSlides(row, copy));
+  isSlides = isRowsSlides.includes(true)
 
   return copy;
 }
@@ -202,6 +209,7 @@ document.addEventListener('keydown', (e) => {
         break;
     }
 
+    isRowsSlides = [];
     updateTable();
 
     if (checkWin()) {
